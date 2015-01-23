@@ -11,8 +11,7 @@ $(function() {
     return '<li class="items">' + this.itemType + "-" + "Power: " + this.power + '</li>';
   };
 
-  function ItemList() {
-  thisItemList = this;
+  var thisItemList = this;
   var Items = [
       new Item ("Banana",               1),
       new Item ("Banana Group",         3),
@@ -29,13 +28,30 @@ $(function() {
       new Item ("Blue Shell",           9),
       new Item ("Ghost",                4)
     ];
-    $.each(Items, function() {
-      alert("test");
-      var item = this;
-      $('#items').append(item.tohtml());
-    });
-   }
+  $.each(Items, function() {
+    var item = this;
+    $('#items').append(item.tohtml());
+  });
 
+  var shuffle = function(m) {
+    var $temp, rand;
+    rand = Math.floor(Math.random() * m--);
+    $temp = $('.items:eq(' + m + ')');
+    $rand = $('.items:eq(' + rand + ')');
+
+    $temp.before($rand);
+    $('.items:eq(' + rand + ')').before($temp);
+
+    if(m) {
+      setTimeout(shuffle, 100, m);
+    }
+   };
+
+   item = new Item ();
+
+   $('button').on('click', function() {
+      shuffle($('#item .items').length);
+     });
 });
 
       
