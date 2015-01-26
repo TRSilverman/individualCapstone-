@@ -12,24 +12,26 @@ $(function() {
   };
 
   Item.prototype.tohtml = function () {
-    return '<li class="items">' + this.itemType + "-" + "Power: " + this.power + '</li>';
+    return '<li class="items" data-power="' + this.power + '">'
+     + this.itemType + "-" + "Power: " + this.power +
+    "<img src= pics/"+ this.itemType+ ".png />" + '</li>';
   };
 
   var thisItemItems = this;
   var Items = [
       new Item ("Banana",               1),
-      new Item ("Banana Group",         3),
-      new Item ("Question Mark",        2),
+      new Item ("BananaGroup",         3),
+      new Item ("QuestionMark",        2),
       new Item ("Mushroom",             4),
-      new Item ("Golden Mushroom",      7),
-      new Item ("Green Shell",        4.5),
-      new Item ("Triple Green Shell",   6),
+      new Item ("GoldenMushroom",      7),
+      new Item ("GreenShell",        4.5),
+      new Item ("TripleGreenShell",   6),
       new Item ("Star",                 8),
-      new Item ("Red Shell",          6.5),
-      new Item ("Triple Red Shell",   8.5),
+      new Item ("RedShell",          6.5),
+      new Item ("TripleRedShell",   8.5),
       new Item ("Lightning",           10),
-      new Item ("Triple Mushroom",      5),
-      new Item ("Blue Shell",           9),
+      new Item ("TripleMushroom",      5),
+      new Item ("BlueShell",           9),
       new Item ("Ghost",              5.5)
   ];
  
@@ -38,24 +40,20 @@ $(function() {
   });
 
 
+//use a while loop and insert before while number is smaller 
 
-
-    $('#sort').on('click', function() {
-     var  position = 0;
-
-     function insertionSort() {
-      if (position < Items.length) {
-        if (position === 0 || $(Items[position- 1].attr("power")) <= $(Items[position]).attr('power')) {
-          position++;
-        } else {
-          $(Items[position].append(this.tohtml()));
-            position--;
-        }
-      }
-
+   $('#sort').on('click', function() {
+      var  position;
+      var $items = $('.items');
+      for (position = 0; position < $items.length; position++) {
+        var $current = $items.eq(position);
+        setTimeout( function ($item) {
+          while ($item.data('power') < $item.prev().data('power')) {
+            $item.insertBefore($item.prev());
+          }
+        }, position * 500, $current);
      }
-     insertionSort();
-  });
+   });
 
  
 
