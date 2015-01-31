@@ -49,7 +49,9 @@ $(function() {
         var $current = $items.eq(position);
         setTimeout( function ($item) {
           while ($item.data('power') < $item.prev().data('power')) {
+            $item.addClass('highlight');
             $item.insertBefore($item.prev());
+            $item.prev().removeClass('highlight');
           }
         }, position * 500, $current);
      }
