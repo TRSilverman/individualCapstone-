@@ -20,19 +20,17 @@ $(function() {
   var thisItemItems = this;
   var Items = [
       new Item ("Banana",               1),
-      new Item ("BananaGroup",         3),
-      new Item ("QuestionMark",        2),
+      new Item ("BananaGroup",          3),
       new Item ("Mushroom",             4),
-      new Item ("GoldenMushroom",      7),
-      new Item ("GreenShell",        4.5),
-      new Item ("TripleGreenShell",   6),
+      new Item ("GoldenMushroom",       7),
+      new Item ("GreenShell",         4.5),
+      new Item ("TripleGreenShell",     6),
       new Item ("Star",                 8),
-      new Item ("RedShell",          6.5),
-      new Item ("TripleRedShell",   8.5),
+      new Item ("RedShell",           6.5),
+      new Item ("TripleRedShell",     8.5),
       new Item ("Lightning",           10),
       new Item ("TripleMushroom",      5),
       new Item ("BlueShell",           9),
-      new Item ("Ghost",              5.5)
   ];
  
   $.each(Items, function() {
@@ -49,11 +47,13 @@ $(function() {
         var $current = $items.eq(position);
         setTimeout( function ($item) {
           while ($item.data('power') < $item.prev().data('power')) {
-            $item.addClass('highlight');
+            $item.addClass('flipInX').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+              function() {
+               $(this).removeClass('flipInX');
+             });
             $item.insertBefore($item.prev());
-            $item.prev().removeClass('highlight');
           }
-        }, position * 500, $current);
+        }, position * 800, $current);
      }
    });
 
